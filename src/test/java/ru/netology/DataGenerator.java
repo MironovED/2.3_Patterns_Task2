@@ -1,10 +1,11 @@
-package ru.netology.testmode.data;
+package ru.netology;
 
 import com.github.javafaker.Faker;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.Data;
 import lombok.Value;
 
 
@@ -12,7 +13,7 @@ import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
 
-
+@Data
 public class DataGenerator {
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
@@ -62,6 +63,7 @@ public class DataGenerator {
 
         public static RegistrationDto getRegisteredUser(String status) {
             RegistrationDto registeredUser = getUser(status);
+            sendRequest(registeredUser);
             // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
             // Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
             return registeredUser;
