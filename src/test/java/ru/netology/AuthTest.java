@@ -1,5 +1,6 @@
 package ru.netology;
 
+import com.codeborne.selenide.Condition;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.restassured.RestAssured.given;
 
@@ -30,10 +33,10 @@ public class AuthTest {
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
 
-        when().
-                get("/api/system/users").
-
-                then().
+        $("[data-test-id='login'] .input__control").val(registeredUser.getLogin());
+        $("[data-test-id='password'] .input__control").val(registeredUser.getPassword());
+        $(".button").click();
+        $(withText("Личный кабинет")).shouldBe(Condition.visible);
 
 
         // TODO: добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
