@@ -36,10 +36,6 @@ public class DataGenerator {
                 .then() // "тогда ожидаем"
                 .statusCode(200); // код 200 OK
     }
-        // TODO: отправить запрос на указанный в требованиях path, передав в body запроса объект user
-        //  и не забудьте передать подготовленную спецификацию requestSpec.
-        //  Пример реализации метода показан в условии к задаче.
-
 
     public static String getRandomLogin() {
         String login = faker.name().name();
@@ -57,15 +53,12 @@ public class DataGenerator {
 
         public static RegistrationDto getUser(String status) {
             RegistrationDto user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
-            // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
             return user;
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
             RegistrationDto registeredUser = getUser(status);
             sendRequest(registeredUser);
-            // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
-            // Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
             return registeredUser;
         }
     }
