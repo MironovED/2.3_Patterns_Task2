@@ -17,7 +17,7 @@ public class AuthTest {
 
     @BeforeEach
     void setUp() {
-        open("http://0.0.0.0:9999");
+        open("http://localhost:9999");
     }
 
 
@@ -26,8 +26,8 @@ public class AuthTest {
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
 
-        $("[data-test-id='login'] .input__control").val(registeredUser.getLogin());
-        $("[data-test-id='password'] .input__control").val(registeredUser.getPassword());
+        $("[data-test-id='login'] input").val(registeredUser.getLogin());
+        $("[data-test-id='password'] input").val(registeredUser.getPassword());
         $(".button").click();
         $(withText("Личный кабинет")).shouldBe(Condition.visible);
 
@@ -37,8 +37,8 @@ public class AuthTest {
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
         var notRegisteredUser = DataGenerator.Registration.getUser("active");
-        $("[data-test-id='login'] .input__control").val(notRegisteredUser.getLogin());
-        $("[data-test-id='password'] .input__control").val(notRegisteredUser.getPassword());
+        $("[data-test-id='login'] input").val(notRegisteredUser.getLogin());
+        $("[data-test-id='password'] input").val(notRegisteredUser.getPassword());
         $(".button").click();
         $(withText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
 
@@ -48,8 +48,8 @@ public class AuthTest {
     @DisplayName("Should get error message if login with blocked registered user")
     void shouldGetErrorIfBlockedUser() {
         var blockedUser = getRegisteredUser("blocked");
-        $("[data-test-id='login'] .input__control").val(blockedUser.getLogin());
-        $("[data-test-id='password'] .input__control").val(blockedUser.getPassword());
+        $("[data-test-id='login'] input").val(blockedUser.getLogin());
+        $("[data-test-id='password'] input").val(blockedUser.getPassword());
         $(".button").click();
         $(withText("Пользователь заблокирован")).shouldBe(Condition.visible);
 
@@ -61,8 +61,8 @@ public class AuthTest {
         var registeredUser = getRegisteredUser("active");
         var wrongLogin = DataGenerator.Registration.getUser("active");
 
-        $("[data-test-id='login'] .input__control").val(wrongLogin.getLogin());
-        $("[data-test-id='password'] .input__control").val(registeredUser.getPassword());
+        $("[data-test-id='login'] input").val(wrongLogin.getLogin());
+        $("[data-test-id='password'] input").val(registeredUser.getPassword());
         $(".button").click();
         $(withText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
 
@@ -74,8 +74,8 @@ public class AuthTest {
         var registeredUser = getRegisteredUser("active");
         var wrongPassword = DataGenerator.Registration.getUser("active");
 
-        $("[data-test-id='login'] .input__control").val(registeredUser.getLogin());
-        $("[data-test-id='password'] .input__control").val(wrongPassword.getPassword());
+        $("[data-test-id='login'] input").val(registeredUser.getLogin());
+        $("[data-test-id='password'] input").val(wrongPassword.getPassword());
         $(".button").click();
         $(withText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
 
